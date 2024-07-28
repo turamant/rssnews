@@ -1,0 +1,8 @@
+feedparser
+flask
+pymongo
+celery
+redis
+aiohttp
+python-dotenv
+

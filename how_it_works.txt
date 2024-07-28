@@ -1,0 +1,14 @@
+1.Запустить контейнер mongo
+     docker exec -it feed-mongo mongo
+
+2.Запустить контейнер redis  
+    docker exec -it my_redis redis
+
+3.Запустить celery tasks
+    make work
+
+4.Запустить приложение
+    python3 app.py 
+
+
+http://127.0.0.1:5000

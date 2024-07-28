@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="title">Latest News</h1>
+        <div class="field">
+            <label class="label">Category:</label>
+            <div class="control">
+                <div class="select">
+                    <select name="category" onchange="window.location.href = '?category=' + this.value + '&page=1'">
+                        <option value="all" {% if selected_category == 'all' %}selected{% endif %}>All</option>
+                        {% for category in categories %}
+                        <option value="{{ category }}" {% if selected_category == category %}selected{% endif %}>{{ category }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <table class="table is-striped is-hoverable is-fullwidth">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Published</th>
+                    <th>Content</th>
+                    <th>Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for news in news_items %}
+                <tr>
+                    <td>{{ news.title }}</td>
+                    <td>{{ news.published }}</td>
+                    <td>{{ news.content }}</td>
+                    <td><a href="{{ news.link }}">Read More</a></td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4">No news found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+            {% if page > 1 %}
+            <a href="{{ url_for('index', page=1, category=selected_category) }}" class="pagination-previous">First</a>
+            <a href="{{ url_for('index', page=page-1, category=selected_category) }}" class="pagination-previous">Previous</a>
+            {% endif %}
+            <span class="pagination-link">Page {{ page }} of {{ total_pages }}</span>
+            {% if page < total_pages %}
+            <a href="{{ url_for('index', page=page+1, category=selected_category) }}" class="pagination-next">Next</a>
+            <a href="{{ url_for('index', page=total_pages, category=selected_category) }}" class="pagination-next">Last</a>
+            {% endif %}
+        </nav>
+    </div>
+</section>
+{% endblock %}
